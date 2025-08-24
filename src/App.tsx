@@ -6,7 +6,7 @@ import { adjustBills, getDateDifference } from "./helpers";
 export default function App() {
   const [billData, setBillData] = useState<BillData | null>(null);
 
-  const handleFormSubmit = (data : FormData) => {
+  const handleFormSubmit = (data: FormData) => {
     console.log("Submitted form data:", data);
 
     const myReadingDurationDays = getDateDifference(
@@ -123,6 +123,9 @@ export default function App() {
         adjustedBills.adjustedBill1,
         adjustedBills.adjustedBill2
       ),
+      finalSubMeterUnits: subMeterConsumptionInBill,
+      finalMyUnits: myConsumptionInBill,
+      finalTotalUnits: totalConsumedUnitInBill,
     });
   };
 

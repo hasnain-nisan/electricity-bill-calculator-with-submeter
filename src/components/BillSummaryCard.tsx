@@ -19,12 +19,15 @@ export interface BillData {
   myTotal: number;
   adjustedSub: number;
   adjustedMine: number;
+  finalSubMeterUnits: number;
+  finalMyUnits: number;
+  finalTotalUnits: number;
 }
 interface Props {
   data: BillData | null;
 }
 
-export default function BillSummaryCard({ data } : Readonly<Props>) {
+export default function BillSummaryCard({ data }: Readonly<Props>) {
   if (!data) {
     return (
       <div className="flex items-center justify-center">
@@ -42,6 +45,8 @@ export default function BillSummaryCard({ data } : Readonly<Props>) {
 
   const formatCurrency = (value: number): string => `৳${value.toFixed(2)}`;
   const formatKWh = (value: number): string => `${value.toFixed(2)} kWh`;
+
+  console.log(data)
 
   return (
     <div className="flex items-center justify-center">
@@ -111,6 +116,24 @@ export default function BillSummaryCard({ data } : Readonly<Props>) {
           </p>
           <p>
             <strong>My Ratio:</strong> {data.myRatio.toFixed(4)}
+          </p>
+        </section>
+
+        {/* Final Unit Usage */}
+        <section>
+          <h4 className="text-lg font-semibold text-blue-600 mb-2">
+            🔢 Final Unit Usage
+          </h4>
+          <p>
+            <strong>Sub Meter Units:</strong>{" "}
+            {(data.finalSubMeterUnits.toFixed(2))}
+          </p>
+          <p>
+            <strong>My Units:</strong> {(data.finalMyUnits.toFixed(2))}
+          </p>
+          <p>
+            <strong>Total Units (from Bill):</strong>{" "}
+            {(data.finalTotalUnits)}
           </p>
         </section>
 
