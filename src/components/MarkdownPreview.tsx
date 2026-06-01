@@ -8,6 +8,7 @@ type Block =
   | { type: "heading"; level: 1 | 2 | 3; text: string }
   | { type: "paragraph"; text: string }
   | { type: "list"; items: string[] }
+  | { type: "orderedList"; items: string[] }
   | { type: "code"; code: string; lang: string }
   | { type: "blockquote"; text: string }
   | { type: "table"; rows: string[][]; aligns: ("left" | "right" | "center")[] }
@@ -89,6 +90,16 @@ function parseMarkdown(md: string): Block[] {
       continue;
     }
 
+    if (/^\d+\.\s+/.test(trimmed)) {
+      const items: string[] = [];
+      while (i < lines.length && /^\d+\.\s+/.test(lines[i].trim())) {
+        items.push(lines[i].trim().replace(/^\d+\.\s+/, ""));
+        i += 1;
+      }
+      blocks.push({ type: "orderedList", items });
+      continue;
+    }
+
     if (trimmed.startsWith("|") && i + 1 < lines.length && lines[i + 1].includes("|")) {
       const header = parseTableRow(trimmed);
       const divider = parseTableRow(lines[i + 1]);
@@ -118,6 +129,7 @@ function parseMarkdown(md: string): Block[] {
       !lines[i].trim().startsWith("#") &&
       !lines[i].trim().startsWith(">") &&
       !lines[i].trim().startsWith("- ") &&
+      !/^\d+\.\s+/.test(lines[i].trim()) &&
       !lines[i].trim().startsWith("```") &&
       !lines[i].trim().startsWith("|") &&
       lines[i].trim() !== "---"
@@ -196,6 +208,18 @@ export default function MarkdownPreview({ content }: Readonly<Props>) {
                 </li>
               ))}
             </ul>
+          );
+        }
+
+        if (block.type === "orderedList") {
+          return (
+            <ol key={index} className="space-y-2 pl-6 text-slate-700">
+              {block.items.map((item, itemIndex) => (
+                <li key={itemIndex} className="list-decimal leading-7">
+                  {renderInline(item)}
+                </li>
+              ))}
+            </ol>
           );
         }
 
