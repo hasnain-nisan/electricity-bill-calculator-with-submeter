@@ -179,6 +179,120 @@ adjusted_sub = 1960.00
 adjusted_my = 883.00
 ```
 
+## Three Month Comparison
+
+Here are the three example bill calculations side by side:
+
+| Date | Main consumption | Sub consumption | My consumption | Total bill units | Energy bill | Demand charge | VAT | Sub total | My total |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 2026-03-26 | 340 kWh | 241 kWh | 99 kWh | 366 | 2582 | 126 | 135 | 1960.68 | 882.32 |
+| 2026-04-21 | 357 kWh | 278 kWh | 79 kWh | 329 | 2286 | 126 | 120 | 1903.13 | 628.87 |
+| 2026-05-22 | 365 kWh | 267 kWh | 98 kWh | 366 | 2582 | 126 | 135 | 2019.25 | 823.75 |
+
+## Detailed Month By Month Breakdown
+
+### 2026-03-26
+
+| Field | Value |
+| --- | ---: |
+| Main meter reading | `11435` to `11775` |
+| Submeter reading | `6115` to `6356` |
+| Meter reading dates | `01/31/2026` to `02/28/2026` |
+| Bill dates | `01/28/2026` to `02/25/2026` |
+| Main consumption | `340 kWh` |
+| Sub consumption | `241 kWh` |
+| My consumption | `99 kWh` |
+| Main per day | `12.14 kWh` |
+| Sub per day | `8.61 kWh` |
+| My per day | `3.54 kWh` |
+| Main usage in bill | `340.00 kWh` |
+| Sub usage in bill | `241.00 kWh` |
+| My usage in bill | `99.00 kWh` |
+| Total unit ratio | `1.0765` |
+| Sub meter ratio | `0.7088` |
+| My ratio | `0.2912` |
+| Sub meter units | `259.43 kWh` |
+| My units | `106.57 kWh` |
+| Energy bill | `2582` |
+| Sub meter energy bill | `1830.18` |
+| My energy bill | `751.82` |
+| Demand charge | `126` |
+| VAT | `135` |
+| Individual demand charge | `63.00` |
+| Individual VAT charge | `67.50` |
+| Sub total | `1960.68` |
+| My total | `882.32` |
+| Adjusted sub meter | `1960.00` |
+| Adjusted mine | `883.00` |
+
+### 2026-04-21
+
+| Field | Value |
+| --- | ---: |
+| Main meter reading | `11775` to `12132` |
+| Submeter reading | `6356` to `6634` |
+| Meter reading dates | `02/28/2026` to `03/31/2026` |
+| Bill dates | `02/26/2026` to `03/30/2026` |
+| Main consumption | `357 kWh` |
+| Sub consumption | `278 kWh` |
+| My consumption | `79 kWh` |
+| Main per day | `11.52 kWh` |
+| Sub per day | `8.97 kWh` |
+| My per day | `2.55 kWh` |
+| Main usage in bill | `368.52 kWh` |
+| Sub usage in bill | `286.97 kWh` |
+| My usage in bill | `81.55 kWh` |
+| Total unit ratio | `0.8928` |
+| Sub meter ratio | `0.7787` |
+| My ratio | `0.2213` |
+| Sub meter units | `256.20 kWh` |
+| My units | `72.80 kWh` |
+| Energy bill | `2286` |
+| Sub meter energy bill | `1780.13` |
+| My energy bill | `505.87` |
+| Demand charge | `126` |
+| VAT | `120` |
+| Individual demand charge | `63.00` |
+| Individual VAT charge | `60.00` |
+| Sub total | `1903.13` |
+| My total | `628.87` |
+| Adjusted sub meter | `1903.00` |
+| Adjusted mine | `629.00` |
+
+### 2026-05-22
+
+| Field | Value |
+| --- | ---: |
+| Main meter reading | `12132` to `12497` |
+| Submeter reading | `6634` to `6901` |
+| Meter reading dates | `03/31/2026` to `04/30/2026` |
+| Bill dates | `03/31/2026` to `04/28/2026` |
+| Main consumption | `365 kWh` |
+| Sub consumption | `267 kWh` |
+| My consumption | `98 kWh` |
+| Main per day | `12.17 kWh` |
+| Sub per day | `8.90 kWh` |
+| My per day | `3.27 kWh` |
+| Main usage in bill | `340.67 kWh` |
+| Sub usage in bill | `249.20 kWh` |
+| My usage in bill | `91.47 kWh` |
+| Total unit ratio | `1.0744` |
+| Sub meter ratio | `0.7315` |
+| My ratio | `0.2685` |
+| Sub meter units | `267.73 kWh` |
+| My units | `98.27 kWh` |
+| Energy bill | `2582` |
+| Sub meter energy bill | `1888.75` |
+| My energy bill | `693.25` |
+| Demand charge | `126` |
+| VAT | `135` |
+| Individual demand charge | `63.00` |
+| Individual VAT charge | `67.50` |
+| Sub total | `2019.25` |
+| My total | `823.75` |
+| Adjusted sub meter | `2019.00` |
+| Adjusted mine | `825.00` |
+
 ## Short Summary
 
 1. Measure how much electricity each meter used.
