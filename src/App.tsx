@@ -1,10 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MeterForm, { type FormData } from "./components/MeterForm";
 import BillSummaryCard, { type BillData } from "./components/BillSummaryCard";
+import MarkdownPreview from "./components/MarkdownPreview";
 import { adjustBills, getDateDifference } from "./helpers";
+import walkthroughMarkdown from "../docs/electricity-bill-calculation.md?raw";
+
+const WALKTHROUGH_PATH = "/calculation-walkthrough";
+
+function normalizePath(pathname: string) {
+  return pathname.replace(/\/+$/, "") || "/";
+}
 
 export default function App() {
   const [billData, setBillData] = useState<BillData | null>(null);
+  const [path, setPath] = useState(() => normalizePath(window.location.pathname));
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setPath(normalizePath(window.location.pathname));
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  const navigate = (to: string) => {
+    if (normalizePath(window.location.pathname) === normalizePath(to)) {
+      return;
+    }
+
+    window.history.pushState({}, "", to);
+    setPath(normalizePath(to));
+  };
 
   const handleFormSubmit = (data: FormData) => {
     console.log("Submitted form data:", data);
@@ -129,11 +156,79 @@ export default function App() {
     });
   };
 
+  if (path === WALKTHROUGH_PATH) {
+    return (
+      <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#eff6ff,_#f8fafc_42%,_#e2e8f0_100%)] px-4 py-8 md:py-12">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-6 flex flex-col gap-4 rounded-3xl border border-white/70 bg-white/85 p-5 shadow-xl backdrop-blur md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
+                Calculation walkthrough
+              </p>
+              <h1 className="mt-1 text-2xl font-black tracking-tight text-slate-900">
+                How the bill split is calculated
+              </h1>
+            </div>
+            <button
+              type="button"
+              onClick={() => navigate("/")}
+              className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+            >
+              Back to calculator
+            </button>
+          </div>
+
+          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xl md:p-10">
+            <MarkdownPreview content={walkthroughMarkdown} />
+          </article>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-12">
-      <div className="container mx-auto bg-white shadow-xl rounded-xl p-6 md:p-12 grid grid-cols-1 md:grid-cols-2 gap-10">
-        <MeterForm onSubmit={handleFormSubmit} />
-        <BillSummaryCard data={billData} />
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#eff6ff,_#f8fafc_42%,_#e2e8f0_100%)] px-4 py-8 md:py-12">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-6 flex flex-col gap-4 rounded-3xl border border-white/70 bg-white/85 p-5 shadow-xl backdrop-blur md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
+              Electricity bill calculator
+            </p>
+            <h1 className="mt-1 text-2xl font-black tracking-tight text-slate-900">
+              Split the main meter bill with a submeter
+            </h1>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
+              Enter your readings, compare them with the official bill, and see
+              a proportional breakdown in seconds.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => navigate(WALKTHROUGH_PATH)}
+            className="inline-flex items-center justify-center rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-500"
+          >
+            Read calculation walkthrough
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 gap-10 rounded-[2rem] border border-white/70 bg-white/90 p-6 shadow-2xl backdrop-blur md:grid-cols-2 md:p-10">
+          <MeterForm onSubmit={handleFormSubmit} />
+          <BillSummaryCard data={billData} />
+          <div className="md:col-span-2">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-sm text-slate-600">
+              Want to see the math in plain English?{" "}
+              <button
+                type="button"
+                onClick={() => navigate(WALKTHROUGH_PATH)}
+                className="font-semibold text-blue-700 underline-offset-4 hover:underline"
+              >
+                Open the calculation walkthrough
+              </button>
+              .
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
